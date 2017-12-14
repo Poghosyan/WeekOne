@@ -12,21 +12,16 @@ public class LinkedListUtils {
 	
 	public static void insertSorted(LinkedList<Integer> list, int value) {
 
-		/* IMPLEMENT THIS METHOD! */
-
 	}
 	
 
 	public static void removeMaximumValues(LinkedList<String> list, int N) {
 
-		/* IMPLEMENT THIS METHOD! */
-
 	}
 	
 	public static boolean containsSubsequence(LinkedList<Integer> one, LinkedList<Integer> two) {
 
-		/* IMPLEMENT THIS METHOD! */
-		
+
 		return true; // this line is here only so this code will compile if you don't modify it
 	}
 }
