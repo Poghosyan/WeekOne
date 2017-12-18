@@ -1,5 +1,6 @@
 package DataStructuresAndAlgo;
 
+import java.util.Collections;
 import java.util.LinkedList;
 
 public class LinkedListUtils {
@@ -13,9 +14,14 @@ public class LinkedListUtils {
 	 * @param list
 	 * @param value
 	 */
-	public static void insertSorted(LinkedList<Integer> list, int value) {
-
-	}
+    public static void insertSorted(LinkedList<Integer> list, int value) {
+        for (int i = 0; i < list.size(); ++i) {
+            if (list.get(i) > value) {
+                list.add(i, value);
+                break;
+            }
+        }
+    }
 
 
 	/**
@@ -30,7 +36,14 @@ public class LinkedListUtils {
 	 * @param N
 	 */
 	public static void removeMaximumValues(LinkedList<String> list, int N) {
-
+        Collections.sort(list);
+        String last;
+        for(; N > 0; --N) {
+            last = list.getLast();
+            while (last.equals(list.getLast())) {
+                list.removeLast();
+            }
+        }
 	}
 
 	/**
@@ -44,7 +57,21 @@ public class LinkedListUtils {
 	 * @return
 	 */
 	public static boolean containsSubsequence(LinkedList<Integer> one, LinkedList<Integer> two) {
+        if (one != null && two != null) {
+            for (int i = 0; i < one.size() - two.size(); ++i) {
+                if (one.get(i).equals(two.getFirst())) {
+                    for (int j = 1; 1 < two.size(); ++j) {
+                        if (!two.get(j).equals(one.get(i + j))) {
+                            break;
+                        }
 
-		return true;
-	}
+                        if (j == two.size() - 1) {
+                            return true;
+                        }
+                    }
+                }
+            }
+        }
+        return false;
+    }
 }
