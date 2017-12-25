@@ -22,6 +22,7 @@ public class HtmlValidator {
                 }
 
 		        if (!current.matches(tagToMatch)) {
+		            documentObjectModel.push(tagToMatch);
                     break;
                 }
             }
