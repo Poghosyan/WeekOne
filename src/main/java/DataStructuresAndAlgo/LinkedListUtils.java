@@ -15,12 +15,22 @@ public class LinkedListUtils {
 	 * @param value
 	 */
     public static void insertSorted(LinkedList<Integer> list, int value) {
+    	if (list == null)
+    		return;
+
+    	if (list.isEmpty()) {
+			list.add(value);
+			return;
+		}
+
         for (int i = 0; i < list.size(); ++i) {
             if (list.get(i) > value) {
                 list.add(i, value);
-                break;
+                return;
             }
         }
+
+        list.addLast(value);
     }
 
 
@@ -36,12 +46,26 @@ public class LinkedListUtils {
 	 * @param N
 	 */
 	public static void removeMaximumValues(LinkedList<String> list, int N) {
-        Collections.sort(list);
+		if (list == null || list.isEmpty())  { return; }
+
+		if (list.size() <= N) {
+            while (!list.isEmpty()) {
+                list.removeFirst();
+            }
+		    return;
+        }
+
+		LinkedList<String> copy = new LinkedList<String>(list);
+        Collections.sort(copy);
         String last;
         for(; N > 0; --N) {
-            last = list.getLast();
-            while (last.equals(list.getLast())) {
-                list.removeLast();
+            last = copy.getLast();
+            while (list.contains(last)) {
+                list.remove(list.indexOf(last));
+            }
+
+            while (copy.getLast().equals(last))  {
+                copy.removeLast();
             }
         }
 	}
@@ -57,8 +81,8 @@ public class LinkedListUtils {
 	 * @return
 	 */
 	public static boolean containsSubsequence(LinkedList<Integer> one, LinkedList<Integer> two) {
-        if (one != null && two != null) {
-            for (int i = 0; i < one.size() - two.size(); ++i) {
+        if (one != null && two != null && !one.isEmpty() && !two.isEmpty()) {
+            for (int i = 0; i <= one.size() - two.size(); ++i) {
                 if (one.get(i).equals(two.getFirst())) {
                     for (int j = 1; 1 < two.size(); ++j) {
                         if (!two.get(j).equals(one.get(i + j))) {
