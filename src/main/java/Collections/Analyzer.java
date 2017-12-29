@@ -1,9 +1,10 @@
 package Collections;
 
-import java.util.List;
-import java.util.Map;
-import java.util.Scanner;
-import java.util.Set;
+import java.io.BufferedReader;
+import java.io.FileNotFoundException;
+import java.io.FileReader;
+import java.io.IOException;
+import java.util.*;
 
 /*
  * SD2x Homework #3
@@ -16,11 +17,27 @@ public class Analyzer {
 	 * Implement this method in Part 1
 	 */
 	public static List<Sentence> readFile(String filename) {
+		ArrayList<Sentence> sentences = new ArrayList<Sentence>();
+		try (BufferedReader buffer = new BufferedReader(new FileReader(filename))) {
+			String nextLine;
+			while ((nextLine = buffer.readLine()) != null) {
+				String[] parts = nextLine.trim().split(" ", 2);
+				int score;
+				try {
+					score = Integer.parseInt(parts[0]);
+					if (parts.length != 2)
+					    continue;
+					Sentence sentence = new Sentence(score, parts[1]);
+					sentences.add(sentence);
+				} catch (NumberFormatException e) {
+					e.printStackTrace();
+				}
+			}
+		} catch (IOException e) {
+			return new ArrayList<Sentence>();
+		}
 
-		/* IMPLEMENT THIS METHOD! */
-		
-		return null; // this line is here only so this code will compile if you don't modify it
-
+		return sentences;
 	}
 	
 	/*
