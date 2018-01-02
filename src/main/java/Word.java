@@ -1,4 +1,4 @@
-package Collections;
+package main.java;
 
 
 public class Word implements Comparable<Word> {
