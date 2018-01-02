@@ -5,16 +5,8 @@ import java.io.FileReader;
 import java.io.IOException;
 import java.util.*;
 
-/*
- * SD2x Homework #3
- * Implement the methods below according to the specification in the assignment description.
- * Please be sure not to change the method signatures!
- */
 public class Analyzer {
-	
-	/*
-	 * Implement this method in Part 1
-	 */
+
 	public static List<Sentence> readFile(String filename) {
 		ArrayList<Sentence> sentences = new ArrayList<>();
 		try (BufferedReader buffer = new BufferedReader(new FileReader(filename))) {
@@ -92,22 +84,20 @@ public class Analyzer {
 	}
 
 	/**
-	 * Implement the calculateScores method in Analyzer.java (the same file as Parts 1 and 2). This method should
+	 * This method should
 	 * iterate over each Word in the input Set, use the Word’s calculateScore method to get the average sentiment score
-	 * for that Word, and then place the text of the Word (as key) and calculated score (as value) in a Map. If the
-	 * input Set of Words is null or is empty, the calculateScores method should return an empty Map. If a Word object
-	 * in the input Set is null, this method should ignore it and process the non-null Words. As above, it is up to you
-	 * to determine which Map implementation to return; any decision is fine, as long as it implements the Map interface
-	 * and you do not change the signature of this method. Please do not change the signature of the calculateScores
-	 * method and do not modify Sentence.java or Word.java. Also, please do not create new .java files. If you need to
-	 * create new classes, add them to Analyzer.java.  Analyzer class is in the default package, i.e. there is no
-	 * “package” declaration at the top of the source code.
+	 * for that Word, and then place the text of the Word (as key) and calculated score (as value) in a Map.
 	 *
 	 * @param words
 	 * @return
 	 */
 	public static Map<String, Double> calculateScores(Set<Word> words) {
-		return null;
+		HashMap<String, Double> calculatedScores = new HashMap<>();
+		for (Word word : words) {
+			if (word.getText() != null && !word.getText().isEmpty())
+			calculatedScores.put(word.getText(), word.calculateScore());
+		}
+		return calculatedScores;
 	}
 
 
@@ -116,8 +106,7 @@ public class Analyzer {
 	 * calculate and return the average score of all the words in the input sentence. Note that you will need to
 	 * tokenize/split the sentence, as you did in Part 2. If a word in the sentence does not start with a letter, then
 	 * you can ignore it, but if it starts with a letter and is not present in the Map, assign it a score of 0. You may
-	 * assume that all words in the Map consist only of lowercase letters (since this would have been done in previous
-	 * steps) but do not assume that all words in the input sentence consist only of lowercase letters; you should
+	 * assume that all words in the Map consist only of lowercase letters but do not assume that all words in the input sentence consist only of lowercase letters; you should
 	 * convert them to lowercase before checking whether they’re contained in the Map. If the input Map is null or
 	 * empty, or if the input sentence is null or empty or does not contain any valid words, this method should return
 	 * 0. Although you can (should!) test each method individually, you can test the entire program using the main
