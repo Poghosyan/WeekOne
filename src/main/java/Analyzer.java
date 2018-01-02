@@ -47,46 +47,45 @@ public class Analyzer {
 	 * should then return a Set of those Word objects. If the input List of Sentences is null or is empty, the allWords
 	 * method should return an empty Set. If a Sentence object in the input List is null, this method should ignore it
 	 * and process the non-null Sentences. As you can see, allWords needs to tokenize/split the text of each Sentence
-	 * to get the individual words. Consult the Java documentation for help with this:
-	 *
-	 * with this:
-	 *
-	 * https://docs.oracle.com/javase/8/docs/api/java/lang/String.html
-	 * https://docs.oracle.com/javase/8/docs/api/java/util/StringTokenizer.html
-	 *
-	 * or feel free to find a tutorial online. Keep in mind that when you tokenize the text of each Sentence, you will
-	 * be getting Strings, but the Set that this method returns needs to include Word objects. However, if two Strings
-	 * are equal, they should be combined into the same Word object, which should track the cumulative score of all
-	 * Sentences containing that String. As you may have noticed in the data file we provided, some tokens start with
-	 * punctuation and the first word of each sentence starts with a capital letter. In producing the Set of Words,
-	 * your program should ignore any token that does not start with a letter. Also, this method should convert all
-	 * strings to lowercase so that it is case-insensitive. Do not assume that the strings in the Sentence objects have
-	 * already been converted to lowercase.
+	 * to get the individual words.
 	 *
 	 * As an example, consider this text:
 	 *
 	 * It 's a lot of fun to learn about data structures.
 	 *
 	 * Your program should convert " It " to " it " (to make it lowercase) and ignore " 's " and the period at the end
-	 * of the sentence since those tokens do not start with a letter. As in Part 1, it is up to you to determine which
-	 * Set implementation to return; any decision is fine, as long as it implements the Set interface and you do not
-	 * change the signature of this method.Hint: although this method needs to return a Set of Words, you may find it
-	 * easier to use a different data structure while processing each Sentence, and then put the combined results into
-	 * a Set before the method returns. There is not necessarily a single "correct" way to implement this method, as
-	 * long as you return the proper Set of Words at the end. Please do not change the signature of the allWords method
-	 * and do not modify Sentence.java or Word.java. Also, please do not create new .java files. If you need to create
-	 * new classes, add them to Analyzer.java. Last, please make sure that your Analyzer class is in the default
-	 * package, i.e. there is no “package” declaration at the top of the source code.
+	 * of the sentence since those tokens do not start with a letter.
 	 *
 	 * @param sentences
 	 * @return
 	 */
 	public static Set<Word> allWords(List<Sentence> sentences) {
-
 		ArrayList<Word> wordList = new ArrayList<Word>();
+		StringTokenizer tokenizer;
+		String current;
 
 		for (Sentence sentence : sentences) {
+			tokenizer = new StringTokenizer(sentence.text);
+			while (tokenizer.hasMoreTokens()) {
+				current = tokenizer.nextToken();
+				current = current.toLowerCase();
 
+				if (",.;:'!?".contains(current.substring(0, 1))) {
+					continue;
+				}
+
+//				current = current.replaceAll(".?!:;,", "");
+
+				Word word = new Word(current);
+
+				if (wordList.contains(word)) {
+					word = wordList.get(wordList.indexOf(word));
+					word.increaseTotal(sentence.getScore());
+				} else {
+					word.increaseTotal(sentence.getScore());
+					wordList.add(word);
+				}
+			}
 		}
 		
 		return null; // this line is here only so this code will compile if you don't modify it
