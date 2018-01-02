@@ -16,7 +16,7 @@ public class Analyzer {
 	 * Implement this method in Part 1
 	 */
 	public static List<Sentence> readFile(String filename) {
-		ArrayList<Sentence> sentences = new ArrayList<Sentence>();
+		ArrayList<Sentence> sentences = new ArrayList<>();
 		try (BufferedReader buffer = new BufferedReader(new FileReader(filename))) {
 			String nextLine;
 			while ((nextLine = buffer.readLine()) != null) {
@@ -33,7 +33,7 @@ public class Analyzer {
 				}
 			}
 		} catch (IOException e) {
-			return new ArrayList<Sentence>();
+			return new ArrayList<>();
 		}
 
 		return sentences;
@@ -60,7 +60,7 @@ public class Analyzer {
 	 * @return
 	 */
 	public static Set<Word> allWords(List<Sentence> sentences) {
-		ArrayList<Word> wordList = new ArrayList<Word>();
+		ArrayList<Word> wordList = new ArrayList<>();
 		StringTokenizer tokenizer;
 		String current;
 
@@ -70,7 +70,7 @@ public class Analyzer {
 				current = tokenizer.nextToken();
 				current = current.toLowerCase();
 
-				if (",.;:'!?".contains(current.substring(0, 1))) {
+				if (",.;:'!?-".contains(current.substring(0, 1))) {
 					continue;
 				}
 
@@ -87,9 +87,8 @@ public class Analyzer {
 				}
 			}
 		}
-		
-		return null; // this line is here only so this code will compile if you don't modify it
 
+		return new HashSet<>(wordList);
 	}
 
 	/**
