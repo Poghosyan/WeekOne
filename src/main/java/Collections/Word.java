@@ -1,5 +1,4 @@
-package main.java;
-
+package Collections;
 
 public class Word implements Comparable<Word> {
 	protected String text;

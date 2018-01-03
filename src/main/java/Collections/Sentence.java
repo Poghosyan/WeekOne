@@ -1,4 +1,4 @@
-package main.java;
+package Collections;
 /*
  * SD2x Homework #3
  * This class represents a single sentence.
